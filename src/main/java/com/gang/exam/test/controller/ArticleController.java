@@ -50,13 +50,6 @@ public class ArticleController {
 			model.addAttribute("historyBack", "true");
 			return "common/js";
 		}
-		if(loginedMemberId != 1) {
-			
-			model.addAttribute("msg", "작성권한이 없습니다");
-			model.addAttribute("historyBack", "true");
-			return "common/js";
-	
-		}
 		
 		
 		 articleService.serviceListAdd(loginedMemberId, title, body ); 

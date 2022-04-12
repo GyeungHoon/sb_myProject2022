@@ -13,7 +13,7 @@ import com.gang.exam.test.vo.Article;
 @Mapper
 public interface ArticleRepository {
 
-	@Select("<script>select id, title,regDate,updateDate,userId from article order by id desc</script>")
+	@Select("<script>SELECT id, title,regDate,updateDate,userId FROM article WHERE userId>=2 ORDER BY id DESC</script>")
 	public List<Article> repositoryList();
 
 	@Select("<script>select id, title, body from article where id = ${id} </script>")
