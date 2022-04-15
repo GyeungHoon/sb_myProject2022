@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gang.exam.test.service.ArticleService;
@@ -21,8 +22,10 @@ public class ArticleController {
 	@Autowired
 	private ArticleService articleService;
 	@RequestMapping("list")
-	public String list(Model model) {
-		List<Article> list = articleService.serviceList();
+	public String list(Model model, @RequestParam(defaultValue = "1")int page) {
+		
+		int itemsCountInAPage = 10;
+		List<Article> list = articleService.serviceList(itemsCountInAPage, page);
 		model.addAttribute("list",list);
 		return "article/list";
 	}

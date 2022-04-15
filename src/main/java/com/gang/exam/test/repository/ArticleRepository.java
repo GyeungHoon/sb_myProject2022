@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -13,8 +14,8 @@ import com.gang.exam.test.vo.Article;
 @Mapper
 public interface ArticleRepository {
 
-	@Select("<script>SELECT id, title,regDate,updateDate,userId FROM article WHERE userId>=2 ORDER BY id DESC</script>")
-	public List<Article> repositoryList();
+	@Select("<script>SELECT id, title,regDate, updateDate, userId FROM article ORDER BY id DESC LIMIT #{limitStart}, #{limitTake} </script>")
+	public List<Article> repositoryList(@Param("limitStart")int limitStart, @Param("limitTake")int limitTake);
 
 	@Select("<script>select id, title, body from article where id = ${id} </script>")
 	public Article serviceDetail(int id);

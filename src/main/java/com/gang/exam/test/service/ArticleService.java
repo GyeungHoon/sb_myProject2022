@@ -14,9 +14,14 @@ public class ArticleService {
 	@Autowired
 	private ArticleRepository articleRepository;
 
-	public List<Article> serviceList() {
+	public List<Article> serviceList(int itemsCountInAPage, int page) {
 		
-		return articleRepository.repositoryList();
+		int limitStart = (page - 1) * itemsCountInAPage;
+		int limitTake = itemsCountInAPage;
+		
+		List<Article> article =  articleRepository.repositoryList(limitStart, limitTake);
+				
+		return article;
 	}
 	
 	public Article serviceDetail(int id) {
