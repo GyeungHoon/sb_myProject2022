@@ -11,7 +11,7 @@
     <input type="password" name="password">
     <button type="submit">로그인</button>
     <div class="join_IDPW">
-      <a href="">회원가입</a>
+      <a href="/member/join">회원가입</a>
       <a href="">아이디/비밀번호 찾기</a>
     </div>
   </div>

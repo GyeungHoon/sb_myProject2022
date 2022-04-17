@@ -9,7 +9,7 @@ public class HomeController {
 	public String showMain() {
 		return "main";
 	}
-	
+
 	@RequestMapping("/")
 	public String showRoot() {
 		return "redirect:main";

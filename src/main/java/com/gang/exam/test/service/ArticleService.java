@@ -14,37 +14,39 @@ public class ArticleService {
 	@Autowired
 	private ArticleRepository articleRepository;
 
-	public List<Article> serviceList(int itemsCountInAPage, int page) {
-		
+	public List<Article> getArticles(int itemsCountInAPage, int page) {
+
 		int limitStart = (page - 1) * itemsCountInAPage;
 		int limitTake = itemsCountInAPage;
-		
-		List<Article> article =  articleRepository.repositoryList(limitStart, limitTake);
-				
+
+		List<Article> article = articleRepository.getArticles(limitStart, limitTake);
+
 		return article;
 	}
-	
-	public Article serviceDetail(int id) {
-		
-		return articleRepository.serviceDetail(id);
+
+	public Article detailArticle(int id) {
+
+		return articleRepository.detailArticle(id);
 	}
 
-	public void serviceListAdd(int userId, String body, String title) {
-		articleRepository.repositoryListAdd(title, body, userId);
-		
-		
-	}
-	public void serviceListDelete(int id) {
-		articleRepository.repositoryListDelete(id);
-		
+	public void writeArticle(int userId, String body, String title) {
+		articleRepository.writeArticle(title, body, userId);
+
 	}
 
-	public void serviceListUpdate(int id, String title, String body) {
-		articleRepository.repositoryListUpdate(id, title, body);
-		
+	public void doDeleteArticle(int id) {
+		articleRepository.doDeleteArticle(id);
+
 	}
 
+	public void doModifyArticle(int id, String title, String body) {
+		articleRepository.doModifyArticle(id, title, body);
 
-	
-	
+	}
+
+	public int getArticlesCount() {
+		int articlesCount = articleRepository.getArticlesCount();
+		return articlesCount;
+	}
+
 }

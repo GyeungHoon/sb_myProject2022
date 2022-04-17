@@ -11,7 +11,6 @@
     <label for="search-box">검색</label>
   </div>
 
-
   <div class="content">
     <table>
       <thead>
@@ -30,9 +29,11 @@
             <td class="item">${list.id}</td>
             <td class="item">${list.regDate }</td>
             <td class="item">${list.updateDate }</td>
-            
-            <td class="item"><a href="detail?id=${list.id}">${list.title }</a></td>
-       
+
+            <td class="item">
+              <a href="detail?id=${list.id}">${list.title }</a>
+            </td>
+
             <td class="item">${list.userId }</td>
           </tr>
         </c:forEach>
@@ -40,9 +41,36 @@
     </table>
   </div>
 
+
+  <div>
+    <div class="board-paging-btn">
+      <c:set var="pageMenuArmLen" value="4" />
+      <c:set var="startPage" value="${page - pageMenuArmLen >= 1 ? page - pageMenuArmLen : 1}" />
+      <c:set var="endPage" value="${page + pageMenuArmLen <= pagesCount ? page + pageMenuArmLen : pagesCount}" />
+
+      <c:if test="${startPage > 1}">
+        <a href="?page=1">1</a>
+        <c:if test="${startPage > 2}">
+          <a>...</a>
+        </c:if>
+      </c:if>
+      <c:forEach begin="${startPage}" end="${endPage}" var="i">
+        <a ${page == i ? 'btn-active' : ''}" href="?page=${i}">${i}</a>
+      </c:forEach>
+      <c:if test="${endPage < pagesCount}">
+        <c:if test="${endPage < pagesCount - 1}">
+          <a>...</a>
+        </c:if>
+        <a href="?page=${pagesCount}">${pagesCount}</a>
+      </c:if>
+    </div>
+  </div>
+
   <div class="board-create">
-    <a href="./boardwrite.html">
-      <button type="button">글쓰기</button>
+    <a href="/article/write">
+      <c:if test="${loginedMemberId == 1}">
+        <button type="button">글쓰기</button>
+      </c:if>
     </a>
   </div>
 </section>

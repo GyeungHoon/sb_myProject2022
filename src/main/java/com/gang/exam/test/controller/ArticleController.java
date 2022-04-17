@@ -1,5 +1,6 @@
 package com.gang.exam.test.controller;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -9,83 +10,88 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gang.exam.test.service.ArticleService;
 import com.gang.exam.test.vo.Article;
-import com.gang.exam.test.vo.Member;
 
 @Controller
 @RequestMapping("/article")
 public class ArticleController {
-	
+
 	@Autowired
 	private ArticleService articleService;
+
 	@RequestMapping("list")
-	public String list(Model model, @RequestParam(defaultValue = "1")int page) {
-		
+	public String showList(Model model, @RequestParam(defaultValue = "1") int page) {
+
+		int articlesCount = articleService.getArticlesCount();
 		int itemsCountInAPage = 10;
-		List<Article> list = articleService.serviceList(itemsCountInAPage, page);
-		model.addAttribute("list",list);
+		int pagesCount = (int) Math.ceil((double) articlesCount / itemsCountInAPage);
+		List<Article> list = articleService.getArticles(itemsCountInAPage, page);
+
+		model.addAttribute("page", page);
+		model.addAttribute("pagesCount", pagesCount);
+		model.addAttribute("list", list);
 		return "article/list";
 	}
 
-	@RequestMapping("listAdd")
-	public String listAdd() {
-		
-		return "article/listWrite";
+	@RequestMapping("write")
+	public String write() {
+
+		return "article/write";
 	}
-	
-	@RequestMapping("doListAdd")
-	public String doListAdd(Model model, String title, String body, HttpSession httpSession) {
-		
+
+	@RequestMapping("doWrite")
+	public String doWrite(Model model, String title, String body, HttpSession httpSession) {
+
 		boolean isLogined = false;
 		int loginedMemberId = 0;
-		
-		if(httpSession.getAttribute("loginedMemberId") != null){
+
+		if (httpSession.getAttribute("loginedMemberId") != null) {
 			isLogined = true;
 			loginedMemberId = (int) httpSession.getAttribute("loginedMemberId");
 		}
 
-		
-		if(isLogined == false) {
+		if (isLogined == false) {
 			model.addAttribute("msg", "로그인 후 이용해주세요");
 			model.addAttribute("historyBack", "true");
 			return "common/js";
 		}
-		
-		
-		 articleService.serviceListAdd(loginedMemberId, title, body ); 
+
+		articleService.writeArticle(loginedMemberId, title, body);
 		model.addAttribute("msg", "생성되었습니다");
 		model.addAttribute("replaceUri", "/");
 		return "common/js";
 	}
-	
+
 	@RequestMapping("detail")
 	public String showDetail(Model model, int id) {
-		
-		Article article = articleService.serviceDetail(id);
+
+		Article article = articleService.detailArticle(id);
 		model.addAttribute("article", article);
-		
+
 		return "article/detail";
 	}
 	
-	
-	@RequestMapping("listUpdate")
-	@ResponseBody
-	public String listUpdate(int id, String title, String body) {
+	@RequestMapping("modify")
+	public String modify(Model model, int id) {
 		
-		articleService.serviceListUpdate(id,title,body);
-		return "수정이 완료되었습니다.";
+		Article article = articleService.detailArticle(id);
+		model.addAttribute("article", article);
+		return "article/modify";
 	}
-	
-	
-	@RequestMapping("listDelete")
-	@ResponseBody
-	public String listDelete(int id) {
-		articleService.serviceListDelete(id);
-		return "삭제되었습니다";
-	}
-	
 
+	@RequestMapping("doModify")
+	public String doModify(Model model,RedirectAttributes redirect, int id, String title, String body) {
+		redirect.addAttribute("id", id);
+		articleService.doModifyArticle(id, title, body);
+	 return "redirect:detail";
+	}
+
+	@RequestMapping("doDelete")
+	public String doDelete(int id) {
+		articleService.doDeleteArticle(id);
+		return "list";
+	}
 }

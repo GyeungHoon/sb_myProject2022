@@ -4,6 +4,8 @@
 <section class="content-detail">
   <h1>게시물 본문</h1>
   <div>
+  <form action="/article/doModify" method="POST">
+  <input type="hidden" name="id" value="${article.id }" />
     <table>
       <tr>
         <th>번호</th>
@@ -19,17 +21,19 @@
       </tr>
       <tr>
         <th>제목</th>
-        <td colspan="3">${article.title}</td>
+        <td colspan="3"><input type="text" name="title" value="${article.title}" maxlength="50" /></td>
       </tr>
       <tr class="detail-body">
         <th>내용</th>
-        <td colspan="3"><textarea cols="20" rows="10" readonly="readonly">${article.body}</textarea></td>
+        <td colspan="3"><textarea name="body" cols="20" rows="10" maxlength="500">${article.body}</textarea></td>
       </tr>
+      
     </table>
     <div>
-      <a href="/article/modify?id=${article.id}">수정</a>
-      <a href="/article/doDelete?id=${article.id}"  onclick="if ( confirm('정말 삭제하시겠습니까?') == false ) return false;">삭제</a>
+      <button type="submit" onclick="if ( confirm('정말 수정하시겠습니까?') == false ) return false;">수정</button>
+      <button type="button" onclick="history.back();">뒤로가기</button>
     </div>
+    </form>
   </div>
 </section>
 <%@ include file="../common/footer.jsp"%>

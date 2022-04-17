@@ -26,10 +26,10 @@
     </a>
     <nav class="navbar">
       <a href="/">홈</a>
-      <a href="#">사진</a>
+      <a href="/article/image">사진</a>
       <a href="/article/list">공지사항</a>
-      <a href="/article/list">게시판</a>
-      <a href="/article/listAdd">작성</a>
+      <!--  <a href="/article/list">게시판</a> -->
+      <!-- <a href="/article/write">작성</a> -->
 
     </nav>
     <div class="icons">

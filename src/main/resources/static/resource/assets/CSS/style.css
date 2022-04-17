@@ -93,6 +93,10 @@ section{
     font-size: 2.5rem;
     margin-left: 2rem;
 }
+.header .icons a:hover{
+   color:var(--main-color);
+    border-bottom : .1rem solid var(--main-color);
+  }
 
 .header .icons div:hover{
     color:var(--main-color);
@@ -361,7 +365,65 @@ section{
 .board .content table tbody tr td:nth-child(5) { width: 10%; }
 
 
+.board-paging-btn{
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.board-paging-btn > a{
+  margin: .1rem;
+  padding: .5rem;
+  color:  #666;
+  
+}
+.board-paging-btn > a:hover{
+  color: #00ff80;
+}
 /* 공지사항 끝 */
+
+/* 공지사항 디테일 */
+
+.content-detail{
+  height:100vh;
+  width:100vw;
+  margin-top:10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction:column;
+  font-size: 3rem;
+}
+.content-detail input, textarea{
+  width:100%;
+  height:100%;
+  font-size: 3rem;
+}
+
+.content-detail table{
+  width:80vw;
+  border: .1rem solid black;
+  border-collapse:collapse;
+  
+}
+.content-detail table th{
+  border: .1rem solid black;
+  border-collapse:collapse;
+}
+.content-detail table tr{
+  border: .1rem solid black;
+  border-collapse:collapse;
+}
+.content-detail table td{
+  border: .1rem solid black;
+  border-collapse:collapse;
+}
+
+.content-detail .detail-body{
+  height: 50rem;
+}
+
+/* 공지사항 디테일 끝*/
 
 /* flim 시작 */
 

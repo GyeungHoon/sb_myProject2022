@@ -8,13 +8,13 @@ import com.gang.exam.test.vo.Member;
 
 @Service
 public class MemberService {
-	
+
 	@Autowired
 	private MemberRepository memberRepository;
-	
+
 	public int join(String email, String password, String name) {
 		Member oldMember = getMemberByLoginId(email);
-		if(oldMember != null) {
+		if (oldMember != null) {
 			return -1;
 		}
 		memberRepository.join(email, password, name);
@@ -22,7 +22,7 @@ public class MemberService {
 	}
 
 	public Member getMemberByLoginId(String email) {
-		
+
 		return memberRepository.getMemberByLoginId(email);
 	}
 
@@ -30,6 +30,4 @@ public class MemberService {
 		return memberRepository.getMemberById(id);
 	}
 
-	
-	
 }
