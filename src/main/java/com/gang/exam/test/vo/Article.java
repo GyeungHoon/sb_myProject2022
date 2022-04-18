@@ -16,5 +16,7 @@ public class Article {
 	private String updateDate;
 	private int userId;
 	
+	private String extra__name;
+	
 	
 }

@@ -1,6 +1,5 @@
 package com.gang.exam.test.controller;
 
-import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -23,12 +22,13 @@ public class ArticleController {
 	private ArticleService articleService;
 
 	@RequestMapping("list")
-	public String showList(Model model, @RequestParam(defaultValue = "1") int page) {
+	public String showList(Model model, @RequestParam(defaultValue = "1") int page, 
+			@RequestParam(defaultValue = "title,body")String searchKeywordTypeCode, @RequestParam(defaultValue = "")String searchKeyword) {
 
-		int articlesCount = articleService.getArticlesCount();
+		int articlesCount = articleService.getArticlesCount(searchKeyword, searchKeywordTypeCode);
 		int itemsCountInAPage = 10;
 		int pagesCount = (int) Math.ceil((double) articlesCount / itemsCountInAPage);
-		List<Article> list = articleService.getArticles(itemsCountInAPage, page);
+		List<Article> list = articleService.getArticles(itemsCountInAPage, page, searchKeyword, searchKeywordTypeCode);
 
 		model.addAttribute("page", page);
 		model.addAttribute("pagesCount", pagesCount);
@@ -90,8 +90,9 @@ public class ArticleController {
 	}
 
 	@RequestMapping("doDelete")
-	public String doDelete(int id) {
+	public String doDelete(RedirectAttributes redirect, int id) {
 		articleService.doDeleteArticle(id);
-		return "list";
+		
+		return "redirect:list";
 	}
 }

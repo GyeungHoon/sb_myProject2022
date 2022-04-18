@@ -14,12 +14,12 @@ public class ArticleService {
 	@Autowired
 	private ArticleRepository articleRepository;
 
-	public List<Article> getArticles(int itemsCountInAPage, int page) {
+	public List<Article> getArticles(int itemsCountInAPage, int page, String searchKeyword, String searchKeywordTypeCode) {
 
 		int limitStart = (page - 1) * itemsCountInAPage;
 		int limitTake = itemsCountInAPage;
 
-		List<Article> article = articleRepository.getArticles(limitStart, limitTake);
+		List<Article> article = articleRepository.getArticles(limitStart, limitTake, searchKeyword, searchKeywordTypeCode);
 
 		return article;
 	}
@@ -44,8 +44,8 @@ public class ArticleService {
 
 	}
 
-	public int getArticlesCount() {
-		int articlesCount = articleRepository.getArticlesCount();
+	public int getArticlesCount(String searchKeyword, String searchKeywordTypeCode) {
+		int articlesCount = articleRepository.getArticlesCount(searchKeyword,searchKeywordTypeCode);
 		return articlesCount;
 	}
 

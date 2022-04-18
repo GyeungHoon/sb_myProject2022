@@ -324,7 +324,7 @@ section{
     
 }
 
-.board .search-form label{
+.board .search-form button{
     width: 6rem;
     height: 4rem;
     cursor: pointer;

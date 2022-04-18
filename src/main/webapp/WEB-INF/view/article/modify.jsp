@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <section class="content-detail">
-  <h1>게시물 본문</h1>
+  <h1>게시물 수정</h1>
   <div>
   <form action="/article/doModify" method="POST">
   <input type="hidden" name="id" value="${article.id }" />

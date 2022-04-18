@@ -27,8 +27,10 @@
       </tr>
     </table>
     <div>
+  <c:if test="${loginedMemberId == 1 }">
       <a href="/article/modify?id=${article.id}">수정</a>
       <a href="/article/doDelete?id=${article.id}"  onclick="if ( confirm('정말 삭제하시겠습니까?') == false ) return false;">삭제</a>
+      </c:if>
     </div>
   </div>
 </section>

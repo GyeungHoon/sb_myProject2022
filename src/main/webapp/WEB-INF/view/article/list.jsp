@@ -5,12 +5,12 @@
   <div>
     <h1>공지사항</h1>
   </div>
-
+<form >
   <div class="search-form">
-    <input type="search" id="search-box" placeholder="검색어를 입력해 주세요.">
-    <label for="search-box">검색</label>
+    <input name="searchKeyword" type="search" id="search-box" placeholder="검색어를 입력해 주세요." value="${param.searchKeyword}">
+    <button type="submit">검색</button>
   </div>
-
+</form>
   <div class="content">
     <table>
       <thead>
@@ -34,7 +34,7 @@
               <a href="detail?id=${list.id}">${list.title }</a>
             </td>
 
-            <td class="item">${list.userId }</td>
+            <td class="item">${list.extra__name }</td>
           </tr>
         </c:forEach>
       </tbody>
@@ -47,21 +47,23 @@
       <c:set var="pageMenuArmLen" value="4" />
       <c:set var="startPage" value="${page - pageMenuArmLen >= 1 ? page - pageMenuArmLen : 1}" />
       <c:set var="endPage" value="${page + pageMenuArmLen <= pagesCount ? page + pageMenuArmLen : pagesCount}" />
+      <c:set var="pageBaseUri" value="?searchKeyword=${param.searchKeyword}"/>
+
 
       <c:if test="${startPage > 1}">
-        <a href="?page=1">1</a>
+        <a href="${pageBaseUri }&page=1">1</a>
         <c:if test="${startPage > 2}">
           <a>...</a>
         </c:if>
       </c:if>
       <c:forEach begin="${startPage}" end="${endPage}" var="i">
-        <a ${page == i ? 'btn-active' : ''}" href="?page=${i}">${i}</a>
+        <a ${page == i ? 'btn-active' : ''}" href="${ pageBaseUri}&page=${i}">${i}</a>
       </c:forEach>
       <c:if test="${endPage < pagesCount}">
         <c:if test="${endPage < pagesCount - 1}">
           <a>...</a>
         </c:if>
-        <a href="?page=${pagesCount}">${pagesCount}</a>
+        <a href="${pageBaseUri }&page=${pagesCount}">${pagesCount}</a>
       </c:if>
     </div>
   </div>

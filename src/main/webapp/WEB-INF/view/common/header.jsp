@@ -39,7 +39,7 @@
       </c:if>
       <c:if test="${loginedMemberId != null}">
         <a href="/member/doLogout"> 로그아웃 </a>
-        <a href="./myPage"> 마이페이지 </a>
+       <!--  <a href="./myPage"> 마이페이지 </a> -->
       </c:if>
       <div class="fas fa-bars" id="menu-btn"></div>
     </div>
